@@ -3,129 +3,349 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Utilio - Legal & Privacy Portal</title>
+  <title>Utilio - Legal & Policy Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0F172A;
-      --card-bg: #1E293B;
+      --bg: #090D16;
+      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15), transparent 70%),
+                     radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.08), transparent 50%);
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-hover: rgba(30, 41, 59, 0.95);
       --text: #F8FAFC;
       --text-muted: #94A3B8;
       --accent: #6366F1;
       --accent-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
-      --border: #334155;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(99, 102, 241, 0.4);
+      --glow: rgba(99, 102, 241, 0.25);
+      --pill-bg: rgba(99, 102, 241, 0.12);
+      --pill-border: rgba(99, 102, 241, 0.25);
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #F8FAFC;
-        --card-bg: #FFFFFF;
-        --text: #0F172A;
-        --text-muted: #64748B;
-        --border: #E2E8F0;
-      }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08), transparent 70%),
+                     radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.05), transparent 50%);
+      --card-bg: #FFFFFF;
+      --card-hover: #F1F5F9;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --border-hover: #818CF8;
+      --glow: rgba(99, 102, 241, 0.15);
+      --pill-bg: #EEF2FF;
+      --pill-border: #C7D2FE;
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
+      background-image: var(--bg-gradient);
       color: var(--text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       min-height: 100vh;
-      padding: 20px;
-    }
-    .card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 40px 32px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    }
-    .logo-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--accent-gradient);
-      padding: 10px 24px;
-      border-radius: 9999px;
-      color: #FFFFFF;
-      font-weight: 800;
-      font-size: 18px;
-      margin-bottom: 20px;
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
-    }
-    h1 {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 8px;
-    }
-    p {
-      color: var(--text-muted);
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 28px;
-    }
-    .btn-group {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .btn {
+
+    /* Top Nav */
+    .top-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px 20px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 15px;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-size: 18px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
-    .btn-primary {
+    .theme-toggle:hover {
+      transform: scale(1.08);
+      border-color: var(--border-hover);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Logo & Branding */
+    .logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 88px;
+      height: 88px;
+      border-radius: 26px;
       background: var(--accent-gradient);
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+      box-shadow: 0 12px 32px var(--glow);
+      margin-bottom: 24px;
+      position: relative;
     }
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
+    .logo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 29px;
+      background: var(--accent-gradient);
+      z-index: -1;
+      opacity: 0.4;
+      filter: blur(10px);
     }
-    .btn:hover {
-      transform: translateY(-2px);
+    .logo-icon {
+      width: 46px;
+      height: 46px;
+      fill: #FFFFFF;
     }
-    footer {
-      margin-top: 32px;
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--pill-bg);
+      border: 1px solid var(--pill-border);
+      color: var(--accent);
+      padding: 6px 16px;
+      border-radius: 9999px;
       font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    h1 span {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      font-size: 16px;
       color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 36px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Action Cards */
+    .cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .action-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      text-decoration: none;
+      color: var(--text);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .action-card:hover {
+      transform: translateY(-3px);
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      box-shadow: 0 12px 30px var(--glow);
+    }
+    .card-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-align: left;
+    }
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 16px;
+      background: var(--pill-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      border: 1px solid var(--pill-border);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+    }
+    .card-arrow {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--pill-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+    .action-card:hover .card-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Trust Pillars */
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 36px;
+    }
+    .pillar-item {
+      padding: 16px 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .pillar-item strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    /* Footer */
+    footer {
+      color: var(--text-muted);
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 28px; }
+      .pillars { grid-template-columns: 1fr; }
+      .action-card { padding: 18px 20px; }
     }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo-badge">⚡ Utilio</div>
-    <h1>Legal & Policy Center</h1>
-    <p>Official legal documentation, data safety declarations, and terms of service for the Utilio mobile app.</p>
-    
-    <div class="btn-group">
-      <a href="PRIVACY_POLICY.html" class="btn btn-primary">
-        🔒 View Privacy Policy
+  <div class="top-nav">
+    <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">🌓</button>
+  </div>
+
+  <div class="container">
+    <div class="logo-wrap">
+      <svg class="logo-icon" viewBox="0 0 24 24">
+        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+      </svg>
+    </div>
+
+    <div class="badge">Official Legal Center</div>
+    <h1>Trust & Security at <span>Utilio</span></h1>
+    <p class="subtitle">
+      40+ daily utilities, finance tools, and wellness trackers built with an uncompromising commitment to privacy and data safety.
+    </p>
+
+    <div class="cards-grid">
+      <a href="PRIVACY_POLICY.html" class="action-card">
+        <div class="card-left">
+          <div class="card-icon">🔒</div>
+          <div>
+            <div class="card-title">Privacy Policy</div>
+            <div class="card-desc">Data protection, permissions & Google AdMob compliance</div>
+          </div>
+        </div>
+        <div class="card-arrow">&rarr;</div>
       </a>
-      <a href="TERMS_OF_SERVICE.html" class="btn btn-secondary">
-        📄 View Terms of Service
+
+      <a href="TERMS_OF_SERVICE.html" class="action-card">
+        <div class="card-left">
+          <div class="card-icon">📄</div>
+          <div>
+            <div class="card-title">Terms of Service</div>
+            <div class="card-desc">Usage terms, freemium rules & medical/financial disclaimers</div>
+          </div>
+        </div>
+        <div class="card-arrow">&rarr;</div>
       </a>
     </div>
 
+    <div class="pillars">
+      <div class="pillar-item">
+        <strong>🛡️ Privacy First</strong>
+        No user tracking or selling
+      </div>
+      <div class="pillar-item">
+        <strong>⚡ Offline Core</strong>
+        Calculators run on-device
+      </div>
+      <div class="pillar-item">
+        <strong>✅ Play Verified</strong>
+        100% Policy compliant
+      </div>
+    </div>
+
     <footer>
-      &copy; 2026 Utilio. Developed by Tanim Sarwar.
+      &copy; 2026 Utilio. Developed by <a href="https://github.com/TanimSarwar" target="_blank" rel="noopener">Tanim Sarwar</a>.
     </footer>
   </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('utilio_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('utilio_theme', next);
+    });
+  </script>
 </body>
 </html>
