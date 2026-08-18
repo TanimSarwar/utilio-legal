@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utilio - Legal & Privacy Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0F172A;
+      --card-bg: #1E293B;
+      --text: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #6366F1;
+      --accent-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+      --border: #334155;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #F8FAFC;
+        --card-bg: #FFFFFF;
+        --text: #0F172A;
+        --text-muted: #64748B;
+        --border: #E2E8F0;
+      }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 40px 32px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-gradient);
+      padding: 10px 24px;
+      border-radius: 9999px;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+    h1 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 20px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-primary {
+      background: var(--accent-gradient);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    footer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-badge">⚡ Utilio</div>
+    <h1>Legal & Policy Center</h1>
+    <p>Official legal documentation, data safety declarations, and terms of service for the Utilio mobile app.</p>
+    
+    <div class="btn-group">
+      <a href="PRIVACY_POLICY.html" class="btn btn-primary">
+        🔒 View Privacy Policy
+      </a>
+      <a href="TERMS_OF_SERVICE.html" class="btn btn-secondary">
+        📄 View Terms of Service
+      </a>
+    </div>
+
+    <footer>
+      &copy; 2026 Utilio. Developed by Tanim Sarwar.
+    </footer>
+  </div>
+</body>
+</html>
