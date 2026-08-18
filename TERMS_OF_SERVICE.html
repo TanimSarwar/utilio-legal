@@ -6,90 +6,168 @@
   <title>Terms of Service - Utilio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0F172A;
-      --card-bg: #1E293B;
+      --bg: #090D16;
+      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12), transparent 70%),
+                     radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.06), transparent 50%);
+      --card-bg: rgba(18, 24, 38, 0.85);
       --text: #F8FAFC;
       --text-muted: #94A3B8;
       --accent: #6366F1;
       --accent-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
-      --border: #334155;
-      --tag-bg: rgba(99, 102, 241, 0.15);
-      --tag-border: rgba(99, 102, 241, 0.3);
+      --border: rgba(255, 255, 255, 0.08);
+      --tag-bg: rgba(99, 102, 241, 0.12);
+      --tag-border: rgba(99, 102, 241, 0.25);
+      --nav-bg: rgba(9, 13, 22, 0.8);
+      --success: #10B981;
+      --warning: #F59E0B;
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #F8FAFC;
-        --card-bg: #FFFFFF;
-        --text: #0F172A;
-        --text-muted: #64748B;
-        --border: #E2E8F0;
-        --tag-bg: #EEF2FF;
-        --tag-border: #C7D2FE;
-      }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --bg-gradient: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.06), transparent 70%),
+                     radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.04), transparent 50%);
+      --card-bg: #FFFFFF;
+      --text: #0F172A;
+      --text-muted: #64748B;
+      --border: #E2E8F0;
+      --tag-bg: #EEF2FF;
+      --tag-border: #C7D2FE;
+      --nav-bg: rgba(248, 250, 252, 0.85);
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
+      background-image: var(--bg-gradient);
       color: var(--text);
-      line-height: 1.65;
-      padding: 40px 20px;
+      line-height: 1.7;
+      padding-bottom: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    .container {
-      max-width: 820px;
+
+    /* Sticky Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+    }
+    .nav-inner {
+      max-width: 900px;
       margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    header {
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    }
+    .brand-icon svg { width: 18px; height: 18px; fill: #FFF; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--accent); }
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 860px;
+      margin: 40px auto 0 auto;
+      padding: 0 20px;
+    }
+
+    .header-box {
       text-align: center;
       margin-bottom: 40px;
-      padding-bottom: 30px;
-      border-bottom: 1px solid var(--border);
     }
-    .logo-badge {
+    .badge {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      background: var(--accent-gradient);
-      padding: 8px 18px;
+      gap: 6px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--accent);
+      padding: 6px 16px;
       border-radius: 9999px;
-      color: #FFFFFF;
+      font-size: 12px;
       font-weight: 700;
-      font-size: 14px;
       letter-spacing: 0.5px;
+      text-transform: uppercase;
       margin-bottom: 16px;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
     }
     h1 {
-      font-size: 32px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 38px;
       font-weight: 800;
-      letter-spacing: -0.8px;
-      margin-bottom: 8px;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
     }
-    .last-updated {
+    .meta {
       color: var(--text-muted);
       font-size: 14px;
-      font-weight: 500;
     }
+
     .card {
-      background-color: var(--card-bg);
+      background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px;
+      border-radius: 24px;
+      padding: 36px;
       margin-bottom: 24px;
+      backdrop-filter: blur(12px);
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
     }
     h2 {
-      font-size: 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 22px;
       font-weight: 700;
-      margin-bottom: 14px;
-      color: var(--text);
+      margin-bottom: 16px;
+      letter-spacing: -0.4px;
       display: flex;
       align-items: center;
       gap: 10px;
@@ -99,19 +177,18 @@
       margin-bottom: 14px;
       font-size: 15px;
     }
-    ul {
-      list-style-type: none;
-      padding-left: 0;
+    ul.bullet-list {
+      list-style: none;
       margin-bottom: 16px;
     }
-    li {
+    ul.bullet-list li {
       position: relative;
       padding-left: 24px;
       margin-bottom: 10px;
       color: var(--text-muted);
       font-size: 14.5px;
     }
-    li::before {
+    ul.bullet-list li::before {
       content: "•";
       position: absolute;
       left: 8px;
@@ -120,68 +197,123 @@
       font-size: 18px;
       line-height: 1;
     }
+
+    .warning-box {
+      background: rgba(245, 158, 11, 0.1);
+      border-left: 4px solid var(--warning);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 18px 0;
+    }
+    .warning-box p { margin-bottom: 0; color: var(--text); font-size: 14px; }
+
     a {
       color: var(--accent);
       text-decoration: none;
       font-weight: 600;
     }
-    a:hover {
-      text-decoration: underline;
-    }
+    a:hover { text-decoration: underline; }
+
     footer {
       text-align: center;
-      margin-top: 40px;
+      margin-top: 50px;
       color: var(--text-muted);
       font-size: 13px;
+    }
+
+    @media (max-width: 650px) {
+      .card { padding: 24px 20px; }
+      h1 { font-size: 30px; }
     }
   </style>
 </head>
 <body>
+  <nav class="navbar">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <span>Utilio</span>
+      </a>
+      <div class="nav-links">
+        <a href="PRIVACY_POLICY.html" class="nav-link">Privacy</a>
+        <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">🌓</button>
+      </div>
+    </div>
+  </nav>
+
   <div class="container">
-    <header>
-      <div class="logo-badge">⚡ Utilio</div>
+    <div class="header-box">
+      <div class="badge">Legal Terms</div>
       <h1>Terms of Service</h1>
-      <p class="last-updated">Last Updated: August 18, 2026</p>
-    </header>
+      <p class="meta">Effective Date: August 18, 2026 &bull; Version 1.0.0</p>
+    </div>
 
     <div class="card">
       <h2>1. Acceptance of Terms</h2>
-      <p>By downloading, installing, or using <strong>Utilio</strong> ("the App"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use the App.</p>
+      <p>By downloading, installing, accessing, or using the <strong>Utilio</strong> mobile application ("App"), you agree to be bound by these Terms of Service. If you do not agree with any portion of these terms, please discontinue use of the App.</p>
     </div>
 
     <div class="card">
       <h2>2. Freemium Model & In-App Upgrades</h2>
-      <p>Utilio is offered under a freemium model. Core functionality is freely accessible with ad-support provided through Google Mobile Ads. Users may optionally upgrade to an Ad-Free Pro lifetime tier. All official digital billing is processed securely via Google Play Billing.</p>
+      <p>Utilio is distributed under a freemium model:</p>
+      <ul class="bullet-list">
+        <li><strong>Free Tier:</strong> Core features are freely accessible and supported by Google Mobile Ads (banner and interstitial ads).</li>
+        <li><strong>Ad-Free Pro Upgrade:</strong> Users may optionally purchase lifetime ad-removal. All official in-app purchases are billed securely through Google Play In-App Billing.</li>
+      </ul>
     </div>
 
     <div class="card">
       <h2>3. Health & Medical Information Disclaimer</h2>
-      <p>All wellness, breathing, meditation, hydration, and body mass index (BMI) features provided in Utilio are for <strong>informational and educational purposes only</strong>. Utilio is not a medical device and does not provide medical diagnosis, treatment, or clinical advice. Consult a licensed physician for any medical concerns.</p>
+      <div class="warning-box">
+        <p><strong>⚠️ Medical Notice:</strong> All wellness tools (BMI calculator, breathing exercises, sleep logs, hydration trackers, and meditation timers) are designed exclusively for general wellness and educational purposes. Utilio is NOT a certified medical device and does NOT offer clinical diagnoses, treatment recommendations, or medical advice. Always consult a qualified medical doctor before altering your health regimen.</p>
+      </div>
     </div>
 
     <div class="card">
-      <h2>4. Financial & Market Data Disclaimer</h2>
-      <p>Financial calculators and stock market price feeds are provided for <strong>estimation and informational purposes only</strong>. Utilio is not a registered financial planner, investment adviser, broker, or tax consultant. Never base real-world financial investments solely on these estimates.</p>
+      <h2>4. Financial & Investment Data Disclaimer</h2>
+      <div class="warning-box">
+        <p><strong>⚠️ Financial Notice:</strong> Stock market prices, loan EMI calculations, bill splitters, and tax estimators are provided for estimation and educational purposes only. Utilio is NOT a registered financial adviser, broker, or tax consultant. We do not guarantee market feed accuracy and are not responsible for financial decisions made using this data.</p>
+      </div>
     </div>
 
     <div class="card">
       <h2>5. Limitation of Liability</h2>
-      <p>Utilio is provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind. To the maximum extent permitted by law, the developer shall not be liable for any indirect, incidental, or consequential damages resulting from the use or inability to use the App.</p>
+      <p>Utilio is provided on an <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong> basis without warranties of any kind. To the fullest extent permitted by applicable law, the developer shall not be liable for any direct, indirect, incidental, or consequential damages resulting from your use or inability to use the App.</p>
     </div>
 
     <div class="card">
-      <h2>6. Contact Us</h2>
-      <p>For any questions regarding these Terms:</p>
-      <ul>
+      <h2>6. Intellectual Property & Acceptable Use</h2>
+      <p>All graphical assets, icons, interface designs, codebases, and brand elements of Utilio are the exclusive property of Tanim Sarwar. You agree not to reverse-engineer, modify, or distribute unauthorized copies of the App.</p>
+    </div>
+
+    <div class="card">
+      <h2>7. Contact Information</h2>
+      <p>For any questions regarding these Terms of Service, please reach out to:</p>
+      <ul class="bullet-list">
         <li><strong>Developer:</strong> Tanim Sarwar</li>
-        <li><strong>GitHub:</strong> <a href="https://github.com/TanimSarwar/Utilio" target="_blank" rel="noopener">github.com/TanimSarwar/Utilio</a></li>
+        <li><strong>GitHub Repository:</strong> <a href="https://github.com/TanimSarwar/Utilio" target="_blank" rel="noopener">github.com/TanimSarwar/Utilio</a></li>
         <li><strong>Email:</strong> <a href="mailto:tanimsarwar@gmail.com">tanimsarwar@gmail.com</a></li>
       </ul>
     </div>
 
     <footer>
-      <p>&copy; 2026 Utilio. All rights reserved.</p>
+      <p>&copy; 2026 Utilio. All rights reserved. &bull; <a href="PRIVACY_POLICY.html">Privacy Policy</a></p>
     </footer>
   </div>
+
+  <script>
+    const themeBtn = document.getElementById('themeBtn');
+    const savedTheme = localStorage.getItem('utilio_theme') || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('utilio_theme', next);
+    });
+  </script>
 </body>
 </html>
