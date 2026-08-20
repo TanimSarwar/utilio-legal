@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Utilio - Google Play Store Publishing & Monetization Master Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --bg-input: #0f172a;
+            --border-color: #334155;
+            --primary: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --accent-rose: #f43f5e;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.2);
+            --shadow-card: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 320px;
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 22px;
+            color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .brand-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Progress Tracker Widget */
+        .progress-box {
+            margin: 16px 20px;
+            padding: 16px;
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+        }
+
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background-color: var(--bg-dark);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-gradient);
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item a:hover, .nav-item a.active {
+            background-color: rgba(99, 102, 241, 0.15);
+            color: #fff;
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            font-size: 12px;
+        }
+
+        /* Main Content Container */
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 40px 60px;
+            max-width: 1200px;
+        }
+
+        /* Header Bar */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            position: relative;
+            width: 380px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px 12px 42px;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-dim);
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%),
+                        radial-gradient(circle at top right, rgba(99, 102, 241, 0.2), transparent 40%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 800px;
+            margin-bottom: 24px;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .stat-card {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        /* Section Styling */
+        .guide-section {
+            margin-bottom: 50px;
+            scroll-margin-top: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Step Card */
+        .step-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .step-card:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            border: 2px solid var(--text-dim);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .custom-checkbox.checked {
+            background: var(--accent-green);
+            border-color: var(--accent-green);
+            color: #fff;
+        }
+
+        .step-title-box h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+
+        .step-title-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .step-body {
+            padding-left: 40px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* Callout Boxes */
+        .alert-box {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin: 16px 0;
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .alert-info {
+            background-color: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #67e8f9;
+        }
+
+        .alert-warning {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fde047;
+        }
+
+        .alert-success {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        /* Code Blocks */
+        .code-container {
+            background-color: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            margin: 14px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background-color: rgba(255, 255, 255, 0.03);
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 12px;
+            color: var(--text-dim);
+            font-family: monospace;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: var(--text-muted);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        pre {
+            padding: 14px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Fira Code', Monaco, monospace;
+            font-size: 13px;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+
+        /* Lists */
+        ul.check-list, ol.num-list {
+            margin: 12px 0 12px 20px;
+        }
+
+        ul.check-list li, ol.num-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Comparison Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: rgba(30, 41, 59, 0.9);
+            color: var(--text-main);
+            padding: 14px 16px;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            background-color: var(--bg-card);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Calculator Widgets */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .calc-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+        }
+
+        .calc-card h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .calc-result {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .calc-result-val {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--accent-green);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .calc-result-sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 260px;
+            }
+            .main-content {
+                margin-left: 260px;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            .sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="brand">
+                <div class="brand-logo">U</div>
+                <div class="brand-text">
+                    <h1>Utilio Guide</h1>
+                    <p>Play Store & Monetization</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="progress-box">
+            <div class="progress-title">
+                <span>Checklist Progress</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#overview" class="active"><span class="nav-icon">🚀</span> Overview & Prerequisites</a></li>
+            <li class="nav-item"><a href="#phase1"><span class="nav-icon">📦</span> Phase 1: Build & Keystore</a></li>
+            <li class="nav-item"><a href="#phase2"><span class="nav-icon">👤</span> Phase 2: Console & Accounts</a></li>
+            <li class="nav-item"><a href="#phase3"><span class="nav-icon">📋</span> Phase 3: Data Safety & Policy</a></li>
+            <li class="nav-item"><a href="#phase4"><span class="nav-icon">🎨</span> Phase 4: Store Listing & ASO</a></li>
+            <li class="nav-item"><a href="#phase5"><span class="nav-icon">💰</span> Phase 5: AdMob Ads Setup</a></li>
+            <li class="nav-item"><a href="#phase6"><span class="nav-icon">☕</span> Phase 6: Tips & Payments</a></li>
+            <li class="nav-item"><a href="#phase7"><span class="nav-icon">🧪</span> Phase 7: 20 Testers & Review</a></li>
+            <li class="nav-item"><a href="#phase8"><span class="nav-icon">🔄</span> Phase 8: Updates & Maintenance</a></li>
+            <li class="nav-item"><a href="#calculators"><span class="nav-icon">🧮</span> Revenue Calculators</a></li>
+        </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOP BAR -->
+        <header class="top-bar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="search-input" placeholder="Search guidelines (e.g. AdMob, 20 testers, AAB)..." onkeyup="filterGuide()">
+            </div>
+            <div class="badge-tag">
+                <span>●</span> Package: <code>com.utilio.app</code>
+            </div>
+        </header>
+
+        <!-- HERO BANNER -->
+        <section class="hero" id="overview">
+            <h2>Utilio App: Complete Publishing & Monetization Blueprint</h2>
+            <p>This master guideline provides a step-by-step roadmap for taking <strong>Utilio</strong> from source code to the Google Play Store, activating Google AdMob ads, setting up tip jars/donations, fulfilling mandatory 2025 Google policies, and receiving payouts directly into your bank account.</p>
+
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-label">App ID</div>
+                    <div class="stat-value">com.utilio.app</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Google One-Time Fee</div>
+                    <div class="stat-value">$25 USD</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Google Service Cut</div>
+                    <div class="stat-value">15% (Tier 1)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Closed Test Rule</div>
+                    <div class="stat-value">20 Testers / 14 Days</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 1: BUILD & KEYSTORE -->
+        <section class="guide-section" id="phase1">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2 class="section-title">Phase 1: Build Generation & Signing Keystore</h2>
+            </div>
+
+            <!-- Step 1.1 -->
+            <div class="step-card" data-step-id="step-1-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>1.1 Verify Configuration Files (app.json & package.json)</h3>
+                        <p>Ensure your package name, version, and Expo build plugins are correctly declared.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>In <code>app.json</code>, confirm the Android package name is uniquely set and version code is initialized to 1:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>app.json</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code>"android": {
+  "package": "com.utilio.app",
+  "versionCode": 1,
+  "adaptiveIcon": {
+    "foregroundImage": "./assets/adaptive-icon.png",
+    "backgroundColor": "#6366F1"
+  },
+  "permissions": [
+    "ACCESS_COARSE_LOCATION",
+    "ACCESS_FINE_LOCATION",
+    "CAMERA"
+  ]
+}</code></pre>
+                    </div>
+                    <div class="alert-box alert-info">
+                        ℹ️ <strong>Note:</strong> Google Play requires an Android App Bundle (<code>.aab</code>) rather than a raw <code>.apk</code> for initial submissions.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 1.2 -->
+            <div class="step-card" data-step-id="step-1-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>1.2 Generate Android Signing Keystore & Build Release AAB</h3>
+                        <p>Build your production <code>.aab</code> package using Expo Application Services (EAS) CLI.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>Run the following commands in your project root terminal:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>Terminal Command</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code># 1. Install EAS CLI globally if not already installed
+npm install -g eas-cli
+
+# 2. Login to your Expo account
+eas login
+
+# 3. Configure EAS Build (if eas.json is missing or updating)
+eas build:configure
+
+# 4. Trigger production Android App Bundle (.aab) build
+eas build --platform android --profile production</code></pre>
+                    </div>
+                    <div class="alert-box alert-warning">
+                        ⚠️ <strong>Critical Security Step:</strong> EAS automatically generates and stores your Android Keystore securely on Expo Cloud servers. You can back it up anytime using:
+                        <br><code>eas credentials -p android</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 2: CONSOLE & ACCOUNT SETUP -->
+        <section class="guide-section" id="phase2">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2 class="section-title">Phase 2: Play Console Account & Merchant Payout Setup</h2>
+            </div>
+
+            <!-- Step 2.1 -->
+            <div class="step-card" data-step-id="step-2-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>2.1 Register Google Play Developer Account</h3>
+                        <p>Create your official publisher presence on Google Play.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ol class="num-list">
+                        <li>Visit <a href="https://play.google.com/console/signup" target="_blank" style="color:var(--accent-cyan)">Google Play Console Signup</a>.</li>
+                        <li>Pay the <strong>$25 USD one-time registration fee</strong> using a credit/debit card.</li>
+                        <li>Complete Identity Verification: Upload your government ID (Passport, Driving License, or National ID) and proof of address.</li>
+                        <li>Select account type: <em>Personal</em> or <em>Organization</em> (Organizations require a D-U-N-S Number).</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Step 2.2 -->
+            <div class="step-card" data-step-id="step-2-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>2.2 Activate Google Payments Merchant Account (For Tips & In-App Purchases)</h3>
+                        <p>Required if you wish to accept digital tips, subscriptions, or feature unlocks within the app.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ol class="num-list">
+                        <li>Inside Play Console, navigate to <strong>Setup</strong> &gt; <strong>Merchant Account</strong>.</li>
+                        <li>Click <strong>Create Merchant Account</strong> and link your business/personal bank details.</li>
+                        <li>Fill in tax information (W-8BEN for non-US residents or W-9 for US developers).</li>
+                        <li>Google pays out automatically around the 15th of each month when earnings exceed $100.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 3: DATA SAFETY & COMPLIANCE -->
+        <section class="guide-section" id="phase3">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2 class="section-title">Phase 3: Data Safety, Privacy Policy & Mandatory Declarations</h2>
+            </div>
+
+            <!-- Step 3.1 -->
+            <div class="step-card" data-step-id="step-3-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>3.1 Submit App Privacy Policy Link</h3>
+                        <p>Link your live hosted Privacy Policy file.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>Your workspace already includes a formatted privacy policy in <code>utilio-legal-pages/PRIVACY_POLICY.html</code>. Host it on GitHub Pages or your custom web server and enter the URL in Play Console:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>Privacy Policy URL Example</span></div>
+                        <pre><code>https://yourusername.github.io/utilio-legal-pages/PRIVACY_POLICY.html</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3.2 -->
+            <div class="step-card" data-step-id="step-3-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>3.2 Complete Data Safety Questionnaire</h3>
+                        <p>Mandatory declarations for permissions used by Utilio (Location, Camera, Storage, AdMob).</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>In Play Console under <strong>App Content</strong> &gt; <strong>Data Safety</strong>, declare the following data collection:</p>
+                    <table style="margin-top:12px">
+                        <thead>
+                            <tr>
+                                <th>Data Type</th>
+                                <th>Collected / Shared</th>
+                                <th>Purpose</th>
+                                <th>Ephemeral / Processed?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Location (Coarse/Fine)</strong></td>
+                                <td>Collected (Not Shared)</td>
+                                <td>Weather forecasting, Qibla compass & prayer times</td>
+                                <td>Processed locally, not stored on server</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Camera</strong></td>
+                                <td>Not Collected</td>
+                                <td>QR & Barcode Scanning</td>
+                                <td>Processed in-memory only</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Device ID & Ad Data</strong></td>
+                                <td>Shared with AdMob</td>
+                                <td>Advertising & Analytics</td>
+                                <td>Required for personalized / contextual ads</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Step 3.3 -->
+            <div class="step-card" data-step-id="step-3-3">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>3.3 Target Audience & IARC Content Rating</h3>
+                        <p>Complete rating survey to get ESRB, PEGI, and Google Play ratings.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ul class="check-list">
+                        <li><strong>Target Audience:</strong> Select <strong>13+</strong> (Selecting under 13 triggers strict Families Policy requirements which restrict AdMob ad network compliance).</li>
+                        <li><strong>IARC Rating Survey:</strong> Fill out the questionnaire. Declare Utilio as a Utility/Productivity tool with NO violence, sexual content, user interaction features, or gambling. You will instantly receive PEGI 3 / ESRB Everyone ratings.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 4: STORE LISTING & ASO -->
+        <section class="guide-section" id="phase4">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2 class="section-title">Phase 4: Store Listing & Visual Assets (ASO)</h2>
+            </div>
+
+            <!-- Step 4.1 -->
+            <div class="step-card" data-step-id="step-4-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>4.1 Store Metadata & Keywords</h3>
+                        <p>Optimize title and descriptions for search visibility.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="code-container">
+                        <div class="code-header"><span>Recommended Store Listing Content</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code>[App Title] (Max 30 chars):
+Utilio - Smart Utility Tools
+
+[Short Description] (Max 80 chars):
+All-in-one daily utility app: Weather, Prayer Times, QR Scanner, Compass & Tools.
+
+[Full Description Keywords]:
+Utilio is your ultimate daily companion packed with essential utility features:
+• Live Weather Forecasts & Temperature alerts
+• Precise Prayer Times & Qibla Compass Finder
+• High-Speed QR Code & Barcode Scanner
+• Smart Unit Converters & Daily Calculation Tools
+• Clean, modern, high-speed interface designed for efficiency.</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4.2 -->
+            <div class="step-card" data-step-id="step-4-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>4.2 Prepare Required Graphic Assets</h3>
+                        <p>Upload screenshots and banners matching Google strict dimensions.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ul class="check-list">
+                        <li><strong>App Icon:</strong> 512 x 512 px PNG (32-bit with alpha, &lt; 1MB).</li>
+                        <li><strong>Feature Graphic:</strong> 1024 x 500 px PNG or JPEG (&lt; 1MB).</li>
+                        <li><strong>Phone Screenshots:</strong> Minimum 2 screenshots (Recommended: 4 to 8). Aspect ratio 16:9 or 9:16 (e.g., 1080 x 1920 px or 1080 x 2400 px).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 5: ADMOB ADS SETUP -->
+        <section class="guide-section" id="phase5">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2 class="section-title">Phase 5: Google AdMob Ads Setup & app-ads.txt</h2>
+            </div>
+
+            <!-- Step 5.1 -->
+            <div class="step-card" data-step-id="step-5-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>5.1 Link AdMob to Play Console & Configure Production Unit IDs</h3>
+                        <p>Switch from AdMob test IDs to production revenue ad units.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>Your <code>app.json</code> is configured with <code>react-native-google-mobile-ads</code>. Confirm your production AdMob App ID is set:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>app.json</span></div>
+                        <pre><code>"react-native-google-mobile-ads": {
+  "android_app_id": "ca-app-pub-4109550681532851~3931127790"
+}</code></pre>
+                    </div>
+                    <p style="margin-top:10px">In your React Native screens, replace test IDs with live Ad Unit IDs created in <a href="https://admob.google.com" target="_blank" style="color:var(--accent-cyan)">AdMob Console</a>:</p>
+                    <ul class="check-list">
+                        <li><strong>Banner Ad Unit:</strong> E.g., <code>ca-app-pub-4109550681532851/xxxxxxxxx1</code></li>
+                        <li><strong>Interstitial Ad Unit:</strong> E.g., <code>ca-app-pub-4109550681532851/xxxxxxxxx2</code></li>
+                        <li><strong>Rewarded Ad Unit:</strong> E.g., <code>ca-app-pub-4109550681532851/xxxxxxxxx3</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 5.2 -->
+            <div class="step-card" data-step-id="step-5-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>5.2 Host app-ads.txt for Verified Ad Earnings</h3>
+                        <p>Mandatory for anti-fraud protection and maximum ad CPM rates.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>Create a file named <code>app-ads.txt</code> in your hosted domain web root (e.g. inside <code>utilio-legal-pages/app-ads.txt</code>) with the following single line:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>app-ads.txt</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code>google.com, pub-4109550681532851, DIRECT, f08c47fec0942fa0</code></pre>
+                    </div>
+                    <div class="alert-box alert-success">
+                        ✅ Once published at <code>https://yourdomain.com/app-ads.txt</code>, enter <code>https://yourdomain.com</code> as the Website URL in your Google Play Console store listing. AdMob will crawl it within 24 hours and verify your publisher account!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 6: TIPS & PAYMENTS -->
+        <section class="guide-section" id="phase6">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2 class="section-title">Phase 6: Getting Tips & Direct Money Monetization</h2>
+            </div>
+
+            <!-- Step 6.1 -->
+            <div class="step-card" data-step-id="step-6-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>6.1 Monetization Strategies Matrix</h3>
+                        <p>Choose the best combination of revenue streams for Utilio.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Monetization Method</th>
+                                    <th>Google Fee Cut</th>
+                                    <th>Setup Effort</th>
+                                    <th>User Experience</th>
+                                    <th>Policy Note</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Google AdMob Banner / Interstitial</strong></td>
+                                    <td>0% (AdMob takes cut before CPM)</td>
+                                    <td>Low</td>
+                                    <td>Free for user, ad supported</td>
+                                    <td>Fully compliant. Use app-ads.txt</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Google Play In-App Tips (IAP Consumable)</strong></td>
+                                    <td>15% (Service tier)</td>
+                                    <td>Medium</td>
+                                    <td>Native 1-tap Google Pay purchase</td>
+                                    <td>Must use Google Play Billing for digital goods in-app</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Buy Me a Coffee / Ko-fi / Web Link</strong></td>
+                                    <td>0% Google fee (0-5% platform fee)</td>
+                                    <td>Very Low</td>
+                                    <td>Opens external browser page</td>
+                                    <td>Allowed if framed as voluntary donation / tipping link</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6.2 -->
+            <div class="step-card" data-step-id="step-6-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>6.2 Implementing "Buy Me a Coffee" or Custom Tip Jar Link</h3>
+                        <p>Fastest method to collect tips without complex native billing integration.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <p>Using Expo's <code>WebBrowser</code> or <code>Linking</code>, add a "Support Developer ☕" button in Utilio Settings / About screen:</p>
+                    <div class="code-container">
+                        <div class="code-header"><span>React Native Code Snippet</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+                        <pre><code>import * as WebBrowser from 'expo-web-browser';
+import { TouchableOpacity, Text } from 'react-native';
+
+const handleTipPress = async () => {
+  // Opens your Buy Me a Coffee or Stripe tipping link in an in-app browser overlay
+  await WebBrowser.openBrowserAsync('https://buymeacoffee.com/yourhandle');
+};
+
+export const TipButton = () => (
+  &lt;TouchableOpacity onPress={handleTipPress} style={{ padding: 14, backgroundColor: '#6366F1', borderRadius: 12 }}&gt;
+    &lt;Text style={{ color: '#FFF', fontWeight: 'bold' }}&gt;☕ Support Utilio (Send Tip)&lt;/Text&gt;
+  &lt;/TouchableOpacity&gt;
+);</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 7: 20 TESTERS & REVIEW -->
+        <section class="guide-section" id="phase7">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2 class="section-title">Phase 7: Mandatory 20 Testers Closed Testing & Review</h2>
+            </div>
+
+            <!-- Step 7.1 -->
+            <div class="step-card" data-step-id="step-7-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>7.1 Master the "20 Testers for 14 Days" Play Store Rule</h3>
+                        <p>Mandatory requirement for personal developer accounts created after Nov 2023.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <div class="alert-box alert-warning">
+                        ⚠️ <strong>Google Policy Requirement:</strong> Before applying for Production release access, you MUST recruit <strong>at least 20 testers</strong> who must remain opted into your Closed Test track continuously for <strong>14 consecutive days</strong>.
+                    </div>
+                    <ol class="num-list">
+                        <li>In Play Console, go to <strong>Testing</strong> &gt; <strong>Closed testing</strong>.</li>
+                        <li>Create a test track, upload your <code>.aab</code> file built in Phase 1.</li>
+                        <li>Create a Google Group or gather email addresses of 20+ friends, colleagues, or testing community members (e.g. Reddit r/AndroidGroupTesting or Google Play Testing groups).</li>
+                        <li>Add their emails to the tester list and share the opt-in web link.</li>
+                        <li>Ensure all 20 testers click "Accept Invitation" and download/open Utilio on their Android phones.</li>
+                        <li>Maintain active testing status for 14 days without deleting the track.</li>
+                        <li>After 14 days, click <strong>Apply for Production Access</strong> and answer Google's feedback questionnaire.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Step 7.2 -->
+            <div class="step-card" data-step-id="step-7-2">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>7.2 Submit to Production Review</h3>
+                        <p>Final submission step once Production Access is granted.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ul class="check-list">
+                        <li>Go to <strong>Production</strong> track &gt; <strong>Create new release</strong>.</li>
+                        <li>Select your tested <code>.aab</code> bundle.</li>
+                        <li>Write Release Notes (e.g., "Initial launch of Utilio - All-in-one utility app").</li>
+                        <li>Click <strong>Save</strong> and <strong>Send for Review</strong>. Review typically takes between 1 to 7 business days.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 8: UPDATES & MAINTENANCE -->
+        <section class="guide-section" id="phase8">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <h2 class="section-title">Phase 8: Publishing App Updates & Maintenance</h2>
+            </div>
+
+            <!-- Step 8.1 -->
+            <div class="step-card" data-step-id="step-8-1">
+                <div class="step-header">
+                    <div class="custom-checkbox" onclick="toggleStep(this)">✓</div>
+                    <div class="step-title-box">
+                        <h3>8.1 How to Release App Updates</h3>
+                        <p>Workflow for releasing new features or bug fixes to existing users.</p>
+                    </div>
+                </div>
+                <div class="step-body">
+                    <ol class="num-list">
+                        <li>In <code>app.json</code>, increment <code>versionCode</code> by +1 (e.g., from <code>1</code> to <code>2</code>) and update <code>version</code> string (e.g., <code>1.0.1</code>).</li>
+                        <li>Run <code>eas build --platform android --profile production</code>.</li>
+                        <li>Upload new <code>.aab</code> bundle in Play Console under <strong>Production</strong> &gt; <strong>Create release</strong>.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALCULATORS SECTION -->
+        <section class="guide-section" id="calculators">
+            <div class="section-header">
+                <div class="section-number">🧮</div>
+                <h2 class="section-title">Interactive Revenue & Tip Calculators</h2>
+            </div>
+
+            <div class="calc-grid">
+                <!-- AdMob Calculator -->
+                <div class="calc-card">
+                    <h4>📊 AdMob Monthly Revenue Calculator</h4>
+                    <div class="input-group">
+                        <label>Daily Active Users (DAU)</label>
+                        <input type="number" id="ad-dau" value="1000" oninput="calculateRevenue()">
+                    </div>
+                    <div class="input-group">
+                        <label>Ad Impressions Per User / Day</label>
+                        <input type="number" id="ad-imp" value="3" oninput="calculateRevenue()">
+                    </div>
+                    <div class="input-group">
+                        <label>Average eCPM ($)</label>
+                        <input type="number" id="ad-ecpm" value="1.50" step="0.1" oninput="calculateRevenue()">
+                    </div>
+                    <div class="calc-result">
+                        <div class="calc-result-val" id="ad-res-monthly">$135.00</div>
+                        <div class="calc-result-sub">Est. Monthly Ad Revenue (~<span id="ad-res-daily">$4.50</span>/day)</div>
+                    </div>
+                </div>
+
+                <!-- Tipping Calculator -->
+                <div class="calc-card">
+                    <h4>☕ Coffee & Tip Revenue Calculator</h4>
+                    <div class="input-group">
+                        <label>Monthly Active Users (MAU)</label>
+                        <input type="number" id="tip-mau" value="5000" oninput="calculateRevenue()">
+                    </div>
+                    <div class="input-group">
+                        <label>Tip Conversion Rate (%)</label>
+                        <input type="number" id="tip-rate" value="0.5" step="0.1" oninput="calculateRevenue()">
+                    </div>
+                    <div class="input-group">
+                        <label>Average Tip Amount ($)</label>
+                        <input type="number" id="tip-amount" value="3.00" step="0.5" oninput="calculateRevenue()">
+                    </div>
+                    <div class="calc-result">
+                        <div class="calc-result-val" id="tip-res-monthly">$75.00</div>
+                        <div class="calc-result-sub">Est. Monthly Tip Revenue (<span id="tip-count">25</span> tips/mo)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Utilio Master Publishing Guideline • Built specifically for Expo & React Native Android deployments.</p>
+        </footer>
+    </main>
+
+    <!-- INTERACTIVE SCRIPT -->
+    <script>
+        // Step Checklist & Local Storage Saving
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProgress();
+            calculateRevenue();
+        });
+
+        function toggleStep(checkbox) {
+            checkbox.classList.toggle('checked');
+            saveProgress();
+            updateProgressBar();
+        }
+
+        function saveProgress() {
+            const steps = document.querySelectorAll('.custom-checkbox');
+            const state = {};
+            steps.forEach((step, idx) => {
+                state[idx] = step.classList.contains('checked');
+            });
+            localStorage.setItem('utilio_guide_progress', JSON.stringify(state));
+        }
+
+        function loadProgress() {
+            const saved = localStorage.getItem('utilio_guide_progress');
+            if (!saved) return;
+            const state = JSON.parse(saved);
+            const steps = document.querySelectorAll('.custom-checkbox');
+            steps.forEach((step, idx) => {
+                if (state[idx]) {
+                    step.classList.add('checked');
+                }
+            });
+            updateProgressBar();
+        }
+
+        function updateProgressBar() {
+            const steps = document.querySelectorAll('.custom-checkbox');
+            const checked = document.querySelectorAll('.custom-checkbox.checked');
+            if (steps.length === 0) return;
+            const percentage = Math.round((checked.length / steps.length) * 100);
+            document.getElementById('progress-fill').style.width = percentage + '%';
+            document.getElementById('progress-percent').innerText = percentage + '%';
+        }
+
+        // Search Filter
+        function filterGuide() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.step-card');
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Copy Code Snippets
+        function copyCode(btn) {
+            const code = btn.parentElement.nextElementSibling.innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                const orig = btn.innerText;
+                btn.innerText = 'Copied!';
+                btn.style.background = '#10b981';
+                btn.style.color = '#fff';
+                setTimeout(() => {
+                    btn.innerText = orig;
+                    btn.style.background = 'rgba(255, 255, 255, 0.08)';
+                    btn.style.color = 'var(--text-muted)';
+                }, 2000);
+            });
+        }
+
+        // Revenue Calculator Logic
+        function calculateRevenue() {
+            // AdMob
+            const dau = parseFloat(document.getElementById('ad-dau').value) || 0;
+            const imp = parseFloat(document.getElementById('ad-imp').value) || 0;
+            const ecpm = parseFloat(document.getElementById('ad-ecpm').value) || 0;
+
+            const dailyAdRev = (dau * imp * ecpm) / 1000;
+            const monthlyAdRev = dailyAdRev * 30;
+
+            document.getElementById('ad-res-daily').innerText = '$' + dailyAdRev.toFixed(2);
+            document.getElementById('ad-res-monthly').innerText = '$' + monthlyAdRev.toFixed(2);
+
+            // Tipping
+            const mau = parseFloat(document.getElementById('tip-mau').value) || 0;
+            const rate = parseFloat(document.getElementById('tip-rate').value) || 0;
+            const tipAmt = parseFloat(document.getElementById('tip-amount').value) || 0;
+
+            const tipCount = Math.round(mau * (rate / 100));
+            const monthlyTipRev = tipCount * tipAmt;
+
+            document.getElementById('tip-count').innerText = tipCount;
+            document.getElementById('tip-res-monthly').innerText = '$' + monthlyTipRev.toFixed(2);
+        }
+    </script>
+</body>
+</html>
